@@ -1,0 +1,83 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/dnd-manager/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/dnd-manager",
+        "index": "apps/dnd-manager/src/index.html",
+        "baseHref": "/",
+        "main": "apps/dnd-manager/src/main.tsx",
+        "polyfills": "apps/dnd-manager/src/polyfills.ts",
+        "tsConfig": "apps/dnd-manager/tsconfig.app.json",
+        "assets": [
+          "apps/dnd-manager/src/favicon.ico",
+          "apps/dnd-manager/src/assets"
+        ],
+        "styles": ["apps/dnd-manager/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/dnd-manager/src/environments/environment.ts",
+              "with": "apps/dnd-manager/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "dnd-manager:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "dnd-manager:build:development"
+        },
+        "production": {
+          "buildTarget": "dnd-manager:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/dnd-manager/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/dnd-manager"],
+      "options": {
+        "jestConfig": "apps/dnd-manager/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
