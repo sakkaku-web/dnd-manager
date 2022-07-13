@@ -1,6 +1,6 @@
 export interface DNDDataApi {
   createSession(id: string): void;
-  addPlayer(player: PlayerData): void;
+  addPlayer(id: string, player: PlayerData): void;
 }
 
 export interface PlayerData {
