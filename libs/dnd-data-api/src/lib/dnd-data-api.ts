@@ -10,10 +10,10 @@ export interface PlayerData {
 }
 
 export enum Stats {
-  cha,
-  con,
-  dex,
-  int,
-  str,
-  wis,
+  CHA,
+  CON,
+  DEX,
+  INT,
+  STR,
+  WIS,
 }
