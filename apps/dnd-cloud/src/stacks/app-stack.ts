@@ -7,6 +7,8 @@ import { Runtime, Code, Function } from '@aws-cdk/aws-lambda';
 import { RetentionDays } from '@aws-cdk/aws-logs';
 import { join } from 'path';
 
+import { DND_DATA_TABLE } from '@sakkaku-web/cloud-shared';
+
 export class AppStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -17,6 +19,14 @@ export class AppStack extends cdk.Stack {
           'http://localhost:4200',
           'https://sakkaku-web.github.io',
         ],
+      },
+    });
+
+    const table = new Table(scope, 'commissionTable', {
+      tableName: DND_DATA_TABLE,
+      partitionKey: {
+        name: commissionTableKey,
+        type: AttributeType.STRING,
       },
     });
 
