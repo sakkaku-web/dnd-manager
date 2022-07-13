@@ -1,13 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
-import NxWelcome from './nx-welcome';
 
 export function App() {
   return (
-    <>
-      <NxWelcome title="dnd-manager" />
-      <div />
-    </>
+    <div className="bg-black">
+      <h1 className="text-white">Hello World</h1>
+    </div>
   );
 }
 
