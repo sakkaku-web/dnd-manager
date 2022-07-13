@@ -6,14 +6,14 @@ interface Data {
 }
 
 export class LocalStorageDataApi implements DNDDataApi {
-  createSession(): string {
+  async createSession() {
     const id = nanoid();
     console.log(`Creating session with id ${id}`);
     localStorage.setItem(id, JSON.stringify({ players: [] }));
     return id;
   }
 
-  addPlayer(id: string, player: PlayerData): void {
+  async addPlayer(id: string, player: PlayerData) {
     const data = localStorage.getItem(id);
     if (!data) {
       console.log(`Session with id ${id} does not exist`);
