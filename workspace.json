@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "dnd-data-api": "libs/dnd-data-api",
     "dnd-manager": "apps/dnd-manager",
     "dnd-manager-e2e": "apps/dnd-manager-e2e"
   }
