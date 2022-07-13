@@ -1,14 +1,20 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { ClientContext } from '../app';
 
-function CreateSession() {
+interface CreateSessionProps {
+  setSessionId: (sessionId: string) => void;
+}
+
+function CreateSession(props: CreateSessionProps) {
   const client = useContext(ClientContext);
+
+  async function onClick() {
+    props.setSessionId(await client.createSession());
+  }
+
   return (
     <div>
-      <form action="">
-        <label htmlFor="session-name">Session Name:</label>
-        <input className="border border-black" type="text" id="session-name" />
-      </form>
+      <button onClick={() => onClick()}>Create Session</button>
     </div>
   );
 }
