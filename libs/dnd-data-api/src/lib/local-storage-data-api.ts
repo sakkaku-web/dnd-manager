@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { DNDDataApi, PlayerData } from './dnd-data-api';
 
 interface Data {
@@ -5,9 +6,11 @@ interface Data {
 }
 
 export class LocalStorageDataApi implements DNDDataApi {
-  createSession(id: string): void {
+  createSession(): string {
+    const id = nanoid();
     console.log(`Creating session with id ${id}`);
     localStorage.setItem(id, JSON.stringify({ players: [] }));
+    return id;
   }
 
   addPlayer(id: string, player: PlayerData): void {
