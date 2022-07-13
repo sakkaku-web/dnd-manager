@@ -2,8 +2,99 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "cloud-shared": {
+      "root": "libs/cloud-shared",
+      "sourceRoot": "libs/cloud-shared/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/cloud-shared/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/cloud-shared"],
+          "options": {
+            "jestConfig": "libs/cloud-shared/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "dnd-cloud": {
+      "projectType": "application",
+      "root": "apps/dnd-cloud",
+      "sourceRoot": "apps/dnd-cloud/src",
+      "targets": {
+        "deploy": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "cwd": "apps/dnd-cloud",
+            "commands": [
+              {
+                "command": "if [ \"{args.stack}\" = \"undefined\" ]; then cdk deploy --require-approval=never; else cdk deploy --require-approval=never {args.stack}; fi"
+              }
+            ]
+          }
+        },
+        "destroy": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "cwd": "apps/dnd-cloud",
+            "commands": [
+              {
+                "command": "if [ \"{args.stack}\" = \"undefined\" ]; then cdk destroy -f; else cdk destroy -f {args.stack}; fi"
+              }
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/dnd-cloud"],
+          "options": {
+            "jestConfig": "apps/dnd-cloud/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "dnd-data-api": "libs/dnd-data-api",
     "dnd-manager": "apps/dnd-manager",
-    "dnd-manager-e2e": "apps/dnd-manager-e2e"
+    "dnd-manager-e2e": "apps/dnd-manager-e2e",
+    "lambda-create-session": {
+      "root": "libs/lambda/create-session",
+      "sourceRoot": "libs/lambda/create-session/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/lambda/create-session/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/lambda/create-session"],
+          "options": {
+            "jestConfig": "libs/lambda/create-session/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "package": {
+          "executor": "@myin/aws-cdk:package",
+          "options": {
+            "entryFile": "libs/lambda/create-session/src/index.ts",
+            "tsConfig": "libs/lambda/create-session/tsconfig.lib.json",
+            "outputPath": "dist/libs/lambda/create-session"
+          }
+        }
+      },
+      "tags": []
+    }
   }
 }

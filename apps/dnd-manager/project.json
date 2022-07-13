@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/web:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
@@ -19,7 +21,9 @@
           "apps/dnd-manager/src/favicon.ico",
           "apps/dnd-manager/src/assets"
         ],
-        "styles": ["apps/dnd-manager/src/styles.scss"],
+        "styles": [
+          "apps/dnd-manager/src/styles.scss"
+        ],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
       },
@@ -65,14 +69,20 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/dnd-manager/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "apps/dnd-manager/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/dnd-manager"],
+      "outputs": [
+        "coverage/apps/dnd-manager"
+      ],
       "options": {
         "jestConfig": "apps/dnd-manager/jest.config.ts",
         "passWithNoTests": true

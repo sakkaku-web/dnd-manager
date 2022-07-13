@@ -15,7 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@sakkaku-web/dnd-data-api": ["libs/dnd-data-api/src/index.ts"]
+      "@sakkaku-web/cloud-shared": ["libs/cloud-shared/src/index.ts"],
+      "@sakkaku-web/dnd-data-api": ["libs/dnd-data-api/src/index.ts"],
+      "@sakkaku-web/lambda/create-session": [
+        "libs/lambda/create-session/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

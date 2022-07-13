@@ -5,14 +5,20 @@
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/dnd-data-api/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/dnd-data-api/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/dnd-data-api"],
+      "outputs": [
+        "coverage/libs/dnd-data-api"
+      ],
       "options": {
         "jestConfig": "libs/dnd-data-api/jest.config.ts",
         "passWithNoTests": true
