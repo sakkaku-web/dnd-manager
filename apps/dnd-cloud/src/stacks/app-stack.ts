@@ -1,10 +1,10 @@
 import * as cdk from '@aws-cdk/core';
 
 import { HttpApi, HttpMethod } from '@aws-cdk/aws-apigatewayv2';
-
 import { HttpLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations';
 import { Runtime, Code, Function } from '@aws-cdk/aws-lambda';
 import { RetentionDays } from '@aws-cdk/aws-logs';
+import { AttributeType, Table } from '@aws-cdk/aws-dynamodb';
 import { join } from 'path';
 
 import { DND_DATA_TABLE } from '@sakkaku-web/cloud-shared';
