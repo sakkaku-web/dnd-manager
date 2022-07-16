@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "axios": "^0.27.2",
     "core-js": "^3.6.5",
     "nanoid": "^4.0.0",
     "react": "18.2.0",
