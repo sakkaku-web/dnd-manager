@@ -29,6 +29,12 @@ function CreatePlayer() {
     });
   }, []);
 
+  function createPlayer() {
+    /**
+     * Create player function
+     */
+  }
+
   return (
     <div>
       <label htmlFor="name">Name</label>
@@ -51,6 +57,12 @@ function CreatePlayer() {
           </div>
         );
       })}
+      <button
+        onClick={() => createPlayer}
+        className="rounded  border bg-red-800 p-1 text-white"
+      >
+        Create player character
+      </button>
     </div>
   );
 }
