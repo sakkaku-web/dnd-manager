@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import InputComponent from './shared/InputComponent';
+import PrimaryButtonComponent from './shared/PrimaryButtonComponent';
 
 interface CharacterClass {
   index: string;
@@ -57,12 +58,7 @@ function CreatePlayer() {
           </div>
         );
       })}
-      <button
-        onClick={() => createPlayer}
-        className="rounded  border bg-red-800 p-1 text-white"
-      >
-        Create player character
-      </button>
+      <PrimaryButtonComponent value="Create player character" />
     </div>
   );
 }
