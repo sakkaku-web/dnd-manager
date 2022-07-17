@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import InputComponent from './shared/InputComponent';
-import PrimaryButtonComponent from './shared/PrimaryButtonComponent';
+import Button from './shared/ButtonComponent';
 
 interface CharacterClass {
   index: string;
@@ -58,7 +58,7 @@ function CreatePlayer() {
           </div>
         );
       })}
-      <PrimaryButtonComponent value="Create player character" />
+      <Button value="Create player character" />
     </div>
   );
 }
