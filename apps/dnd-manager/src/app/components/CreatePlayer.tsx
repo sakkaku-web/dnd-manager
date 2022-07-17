@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import InputComponent from './shared/InputComponent';
 
 interface CharacterClass {
   index: string;
@@ -31,7 +32,7 @@ function CreatePlayer() {
   return (
     <div>
       <label htmlFor="name">Name</label>
-      <input type="text" id="name" />
+      <InputComponent type="text" id="name" />
       <label htmlFor="class">Class</label>
       <select name="class" id="class">
         {classes.map((characterClass, index) => {
@@ -46,7 +47,7 @@ function CreatePlayer() {
         return (
           <div key={index}>
             <label htmlFor={characterStats.name}>{characterStats.name}</label>
-            <input id={characterStats.name} type="text" />
+            <InputComponent type="text" id={characterStats.name} />
           </div>
         );
       })}
