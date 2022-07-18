@@ -40,8 +40,8 @@ function CreatePlayer() {
     <div>
       <label htmlFor="name">Name</label>
       <InputComponent type="text" id="name" />
-      <label htmlFor="class">Class</label>
-      <select name="class" id="class">
+      <label htmlFor="character-class">Character class</label>
+      <select name="character-class" id="character-class">
         {classes.map((characterClass, index) => {
           return (
             <option key={index} value={characterClass.name}>
