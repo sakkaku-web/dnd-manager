@@ -58,7 +58,7 @@ function CreatePlayer() {
           </div>
         );
       })}
-      <Button value="Create player character" />
+      <Button>Create Player Character</Button>
     </div>
   );
 }

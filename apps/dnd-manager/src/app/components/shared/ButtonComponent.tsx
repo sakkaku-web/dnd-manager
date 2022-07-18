@@ -1,15 +1,19 @@
+import { PropsWithChildren } from 'react';
+
 interface ButtonComponentProps {
-  value: string;
   handleClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-function ButtonComponent({ value, handleClick }: ButtonComponentProps) {
+function ButtonComponent({
+  children,
+  handleClick,
+}: PropsWithChildren<ButtonComponentProps>) {
   return (
     <button
       onClick={handleClick ? (event) => handleClick(event) : undefined}
       className="rounded border bg-red-800 p-1 text-white"
     >
-      {value}
+      {children}
     </button>
   );
 }
