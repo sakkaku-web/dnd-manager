@@ -16,8 +16,8 @@ interface CharacterStats {
   url: string;
 }
 
-interface Input {
-  characterName: string;
+interface PlayerCharacter {
+  playerName: string;
   cha: string;
   con: string;
   dex: string;
@@ -29,8 +29,8 @@ interface Input {
 function CreatePlayer() {
   const [classes, setClasses] = useState<CharacterClass[]>([]);
   const [stats, setStats] = useState<CharacterStats[]>([]);
-  const [input, setInput] = useState<Input>({
-    characterName: '',
+  const [playerCharacter, setPlayerCharacter] = useState<PlayerCharacter>({
+    playerName: '',
     cha: '',
     con: '',
     dex: '',
@@ -50,11 +50,11 @@ function CreatePlayer() {
     });
   }, []);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const key = e.target.name;
-    const value = e.target.value;
-    setInput({
-      ...input,
+  function setPlayerStat(key: string, value: string) {
+    // const key = e.target.name;
+    // const value = e.target.value;
+    setPlayerCharacter({
+      ...playerCharacter,
       [key]: value,
     });
   }
@@ -69,9 +69,10 @@ function CreatePlayer() {
     <div>
       <label htmlFor="name">Name</label>
       <InputComponent
-        inputValue={input.characterName}
-        inputName="characterName"
-        handleChange={handleChange}
+        inputValue={playerCharacter.playerName}
+        handleChange={(event) =>
+          setPlayerStat('characterName', event.target.value)
+        }
         type="text"
         id="name"
       />
@@ -90,11 +91,14 @@ function CreatePlayer() {
           <div key={characterStats.index}>
             <label htmlFor={characterStats.name}>{characterStats.name}</label>
             <InputComponent
-              inputName={characterStats.index}
-              inputValue={input[characterStats.index as keyof Input]}
+              inputValue={
+                playerCharacter[characterStats.index as keyof PlayerCharacter]
+              }
               type="text"
               id={characterStats.name}
-              handleChange={handleChange}
+              handleChange={(event) =>
+                setPlayerStat(characterStats.index, event.target.value)
+              }
             />
           </div>
         );
