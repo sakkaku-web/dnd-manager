@@ -1,18 +1,18 @@
 interface InputComponentProps {
   type: string;
   id: string;
-  inputValue?: string;
+  value?: string;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 function InputComponent({
   type,
   id,
-  inputValue,
+  value,
   handleChange,
 }: InputComponentProps) {
   return (
     <input
-      value={inputValue}
+      value={value}
       type={type}
       id={id}
       className="rounded border border-gray-600 p-1"

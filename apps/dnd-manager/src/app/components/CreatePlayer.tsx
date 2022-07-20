@@ -51,27 +51,19 @@ function CreatePlayer() {
   }, []);
 
   function setPlayerStat(key: string, value: string) {
-    // const key = e.target.name;
-    // const value = e.target.value;
     setPlayerCharacter({
       ...playerCharacter,
       [key]: value,
     });
   }
 
-  function createPlayer() {
-    /**
-     * Create player function
-     */
-  }
-
   return (
     <div>
       <label htmlFor="name">Name</label>
       <InputComponent
-        inputValue={playerCharacter.playerName}
+        value={playerCharacter.playerName}
         handleChange={(event) =>
-          setPlayerStat('characterName', event.target.value)
+          setPlayerStat('playerName', event.target.value)
         }
         type="text"
         id="name"
@@ -91,7 +83,7 @@ function CreatePlayer() {
           <div key={characterStats.index}>
             <label htmlFor={characterStats.name}>{characterStats.name}</label>
             <InputComponent
-              inputValue={
+              value={
                 playerCharacter[characterStats.index as keyof PlayerCharacter]
               }
               type="text"
