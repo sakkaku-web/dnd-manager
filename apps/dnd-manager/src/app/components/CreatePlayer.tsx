@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import InputComponent from './shared/InputComponent';
 import Button from './shared/ButtonComponent';
-import { STATS_API, CLASSES_API } from '../ApiLinks';
+import { ABILITY_SCORES_API, CLASSES_API } from '../ApiLinks';
 
 interface CharacterClass {
   index: string;
@@ -44,7 +44,7 @@ function CreatePlayer() {
       const data = response.data.results;
       setClasses(data);
     });
-    axios.get(STATS_API).then((response) => {
+    axios.get(ABILITY_SCORES_API).then((response) => {
       const data = response.data.results;
       setStats(data);
     });
