@@ -78,17 +78,17 @@ function CreatePlayer() {
       />
       <label htmlFor="character-class">Character class</label>
       <select name="character-class" id="character-class">
-        {classes.map((characterClass, index) => {
+        {classes.map((characterClass) => {
           return (
-            <option key={index} value={characterClass.name}>
+            <option key={characterClass.index} value={characterClass.name}>
               {characterClass.name}
             </option>
           );
         })}
       </select>
-      {stats.map((characterStats, index) => {
+      {stats.map((characterStats) => {
         return (
-          <div key={index}>
+          <div key={characterStats.index}>
             <label htmlFor={characterStats.name}>{characterStats.name}</label>
             <InputComponent
               inputName={characterStats.index}
