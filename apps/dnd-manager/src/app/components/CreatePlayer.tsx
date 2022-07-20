@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import InputComponent from './shared/InputComponent';
 import Button from './shared/ButtonComponent';
+import { STATS_API, CLASSES_API } from '../ApiLinks';
 
 interface CharacterClass {
   index: string;
@@ -37,15 +38,13 @@ function CreatePlayer() {
     str: '',
     wis: '',
   });
-  const API_CLASSES = 'https://www.dnd5eapi.co/api/classes';
-  const API_STATS = ' https://www.dnd5eapi.co/api/ability-scores';
 
   useEffect(() => {
-    axios.get(API_CLASSES).then((response) => {
+    axios.get(CLASSES_API).then((response) => {
       const data = response.data.results;
       setClasses(data);
     });
-    axios.get(API_STATS).then((response) => {
+    axios.get(STATS_API).then((response) => {
       const data = response.data.results;
       setStats(data);
     });
