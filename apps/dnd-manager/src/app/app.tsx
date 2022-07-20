@@ -1,9 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { DNDDataApi, LocalStorageDataApi } from '@sakkaku-web/dnd-data-api';
-import React, { useContext, useState } from 'react';
-import styles from './app.module.scss';
-import CreateSession from './components/CreateSession';
+import React, { useState } from 'react';
 import CreatePlayer from './components/CreatePlayer';
+import Button from './components/shared/ButtonComponent';
 
 const client: DNDDataApi = new LocalStorageDataApi();
 export const ClientContext = React.createContext(client);
@@ -15,8 +14,13 @@ export function App() {
     <ClientContext.Provider value={client}>
       <div>
         <h1>Hello World</h1>
-        <CreateSession setSessionId={setSessionId} />
-        <CreatePlayer />
+        {sessionId ? (
+          <CreatePlayer />
+        ) : (
+          <Button handleClick={async () => setSessionId(await client.createSession())}>
+            Create Session
+          </Button>
+        )}
       </div>
     </ClientContext.Provider>
   );
