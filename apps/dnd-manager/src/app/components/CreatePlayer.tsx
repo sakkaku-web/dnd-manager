@@ -19,12 +19,12 @@ interface CharacterStats {
 
 interface PlayerCharacter {
   playerName: string;
-  cha: string;
-  con: string;
-  dex: string;
-  int: string;
-  str: string;
-  wis: string;
+  cha: number;
+  con: number;
+  dex: number;
+  int: number;
+  str: number;
+  wis: number;
 }
 
 function CreatePlayer() {
@@ -33,12 +33,12 @@ function CreatePlayer() {
   const [isLoading, setIsLoading] = useState(true);
   const [playerCharacter, setPlayerCharacter] = useState<PlayerCharacter>({
     playerName: '',
-    cha: '',
-    con: '',
-    dex: '',
-    int: '',
-    str: '',
-    wis: '',
+    cha: 0,
+    con: 0,
+    dex: 0,
+    int: 0,
+    str: 0,
+    wis: 0,
   });
 
   useEffect(() => {
@@ -89,7 +89,8 @@ function CreatePlayer() {
                 <label htmlFor={characterStats.name}>{characterStats.name}</label>
                 <InputComponent
                   value={playerCharacter[characterStats.index as keyof PlayerCharacter]}
-                  type="text"
+                  type="number"
+                  minNumber="0"
                   id={characterStats.name}
                   handleChange={(event) => setPlayerStat(characterStats.index, event.target.value)}
                 />
