@@ -15,9 +15,11 @@ export function App() {
       <div>
         <h1>Hello World</h1>
         {sessionId ? (
-          <CreatePlayer />
+          <CreatePlayer sessionId={sessionId} />
         ) : (
-          <Button handleClick={async () => setSessionId(await client.createSession())}>
+          <Button
+            handleClick={async () => setSessionId(await client.createSession())}
+          >
             Create Session
           </Button>
         )}

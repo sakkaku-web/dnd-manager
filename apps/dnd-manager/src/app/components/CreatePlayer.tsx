@@ -1,9 +1,11 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import InputComponent from './shared/InputComponent';
 import Button from './shared/ButtonComponent';
 import SpinnerComponent from './shared/SpinnerComponent';
 import { ABILITY_SCORES_API, CLASSES_API } from '../ApiLinks';
+import { ClientContext } from '../app';
+import { PlayerData, Stats } from '@sakkaku-web/dnd-data-api';
 
 interface CharacterClass {
   index: string;
@@ -18,7 +20,8 @@ interface CharacterStats {
 }
 
 interface PlayerCharacter {
-  playerName: string;
+  name: string;
+  class: string;
   cha: number;
   con: number;
   dex: number;
@@ -27,12 +30,18 @@ interface PlayerCharacter {
   wis: number;
 }
 
-function CreatePlayer() {
+interface CreatePlayerProps {
+  sessionId: string;
+}
+
+function CreatePlayer({ sessionId }: CreatePlayerProps) {
   const [classes, setClasses] = useState<CharacterClass[]>([]);
   const [stats, setStats] = useState<CharacterStats[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const client = useContext(ClientContext);
   const [playerCharacter, setPlayerCharacter] = useState<PlayerCharacter>({
-    playerName: '',
+    name: '',
+    class: '',
     cha: 0,
     con: 0,
     dex: 0,
@@ -40,6 +49,21 @@ function CreatePlayer() {
     str: 0,
     wis: 0,
   });
+
+  function mapPlayerCharacterToData(playerCharacter: PlayerCharacter): PlayerData {
+    return {
+      name: playerCharacter.name,
+      class: playerCharacter.class,
+      stats: {
+        [Stats.CHA]: playerCharacter.cha,
+        [Stats.CON]: playerCharacter.con,
+        [Stats.DEX]: playerCharacter.dex,
+        [Stats.INT]: playerCharacter.int,
+        [Stats.STR]: playerCharacter.str,
+        [Stats.WIS]: playerCharacter.wis,
+      },
+    };
+  }
 
   useEffect(() => {
     const classes = axios.get(CLASSES_API).then((response) => {
@@ -53,7 +77,7 @@ function CreatePlayer() {
     Promise.all([classes, abilityScores]).then(() => setIsLoading(false));
   }, []);
 
-  function setPlayerStat(key: string, value: string) {
+  function setPlayerStat(key: keyof PlayerCharacter, value: string) {
     setPlayerCharacter({
       ...playerCharacter,
       [key]: value,
@@ -66,15 +90,12 @@ function CreatePlayer() {
         <SpinnerComponent />
       ) : (
         <div>
-          <label htmlFor="name">Name</label>
-          <InputComponent
-            value={playerCharacter.playerName}
-            handleChange={(event) => setPlayerStat('playerName', event.target.value)}
-            type="text"
-            id="name"
-          />
           <label htmlFor="character-class">Character class</label>
-          <select name="character-class" id="character-class">
+          <select
+            onChange={(e) => setPlayerStat('class', e.target.value)}
+            name="character-class"
+            id="character-class"
+          >
             {classes.map((characterClass) => {
               return (
                 <option key={characterClass.index} value={characterClass.name}>
@@ -83,21 +104,41 @@ function CreatePlayer() {
               );
             })}
           </select>
+          <label htmlFor="name">Name</label>
+          <InputComponent
+            value={playerCharacter.name}
+            handleChange={(event) => setPlayerStat('name', event.target.value)}
+            type="text"
+            id="name"
+          />
           {stats.map((characterStats) => {
             return (
               <div key={characterStats.index}>
                 <label htmlFor={characterStats.name}>{characterStats.name}</label>
                 <InputComponent
-                  value={playerCharacter[characterStats.index as keyof PlayerCharacter]}
+                  value={
+                    playerCharacter[characterStats.index as keyof PlayerCharacter]
+                  }
                   type="number"
                   minNumber="0"
                   id={characterStats.name}
-                  handleChange={(event) => setPlayerStat(characterStats.index, event.target.value)}
+                  handleChange={(event) =>
+                    setPlayerStat(
+                      characterStats.index as keyof PlayerCharacter,
+                      event.target.value
+                    )
+                  }
                 />
               </div>
             );
           })}
-          <Button>Create Player Character</Button>
+          <Button
+            handleClick={() =>
+              client.addPlayer(sessionId, mapPlayerCharacterToData(playerCharacter))
+            }
+          >
+            Create Player Character
+          </Button>
         </div>
       )}
     </div>
