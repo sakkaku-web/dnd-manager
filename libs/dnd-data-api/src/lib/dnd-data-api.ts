@@ -1,6 +1,7 @@
 export interface DNDDataApi {
   createSession(): Promise<string>;
   addPlayer(id: string, player: PlayerData): Promise<void>;
+  getPlayers(id: string): Promise<PlayerData[]>;
 }
 
 export interface PlayerData {
@@ -10,10 +11,10 @@ export interface PlayerData {
 }
 
 export enum Stats {
-  CHA,
-  CON,
-  DEX,
-  INT,
-  STR,
-  WIS,
+  CHA = 'CHA',
+  CON = 'CON',
+  DEX = 'DEX',
+  INT = 'INT',
+  STR = 'STR',
+  WIS = 'WIS',
 }

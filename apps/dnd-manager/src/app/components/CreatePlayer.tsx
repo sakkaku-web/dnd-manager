@@ -32,9 +32,10 @@ interface PlayerCharacter {
 
 interface CreatePlayerProps {
   sessionId: string;
+  onPlayerCreate(): void;
 }
 
-function CreatePlayer({ sessionId }: CreatePlayerProps) {
+function CreatePlayer({ sessionId, onPlayerCreate }: CreatePlayerProps) {
   const [classes, setClasses] = useState<CharacterClass[]>([]);
   const [stats, setStats] = useState<CharacterStats[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -133,9 +134,10 @@ function CreatePlayer({ sessionId }: CreatePlayerProps) {
             );
           })}
           <Button
-            handleClick={() =>
-              client.addPlayer(sessionId, mapPlayerCharacterToData(playerCharacter))
-            }
+            handleClick={() => {
+              client.addPlayer(sessionId, mapPlayerCharacterToData(playerCharacter));
+              onPlayerCreate();
+            }}
           >
             Create Player Character
           </Button>

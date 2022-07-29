@@ -26,6 +26,17 @@ export class LocalStorageDataApi implements DNDDataApi {
     this.setItem(id, data);
   }
 
+  async getPlayers(id: string): Promise<PlayerData[]> {
+    const data: Data = this.getItem(id);
+    if (!data) {
+      console.log(`Session with id ${id} does not exist`);
+      throw new Error('Session does not exist');
+    }
+
+    const players = data.players;
+    return players;
+  }
+
   private setItem(key: string, value: object | string) {
     const str = typeof value === 'object' ? JSON.stringify(value) : value;
     localStorage.setItem(STORAGE_KEY_PREFIX + key, str);
